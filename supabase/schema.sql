@@ -22,6 +22,14 @@ create table lessons (
   teacher_id uuid references teachers(id), status text not null default 'planned' check(status in ('planned','done','cancelled')), note text, created_at timestamptz default now(),
   constraint lesson_owner check ((student_id is not null) <> (group_id is not null))
 );
+create table lesson_attendance (
+  lesson_id uuid references lessons(id) on delete cascade,
+  student_id uuid references students(id) on delete cascade,
+  status text not null check(status in ('present','absent')),
+  note text,
+  charged boolean not null default false,
+  primary key(lesson_id, student_id)
+);
 create table subscription_history (
   id uuid primary key default gen_random_uuid(), subscription_id uuid not null references subscriptions(id) on delete cascade,
   lesson_id uuid references lessons(id) on delete set null, delta smallint not null, reason text not null, created_at timestamptz default now()
@@ -35,6 +43,7 @@ alter table lesson_groups enable row level security;
 alter table group_members enable row level security;
 alter table subscriptions enable row level security;
 alter table lessons enable row level security;
+alter table lesson_attendance enable row level security;
 alter table subscription_history enable row level security;
 
 -- Базовая политика для авторизованных сотрудников. Перед продакшеном добавьте роли школы.
@@ -44,4 +53,5 @@ create policy "authenticated staff groups" on lesson_groups for all to authentic
 create policy "authenticated staff members" on group_members for all to authenticated using (true) with check (true);
 create policy "authenticated staff subscriptions" on subscriptions for all to authenticated using (true) with check (true);
 create policy "authenticated staff lessons" on lessons for all to authenticated using (true) with check (true);
+create policy "authenticated staff attendance" on lesson_attendance for all to authenticated using (true) with check (true);
 create policy "authenticated staff history" on subscription_history for all to authenticated using (true) with check (true);
