@@ -7,6 +7,12 @@ create table students (
   format text not null check (format in ('individual','pair','group')), teacher_id uuid references teachers(id),
   weekdays smallint[] default '{}', lesson_time time, contact text, note text, created_at timestamptz default now()
 );
+create table student_schedule_slots (
+  student_id uuid references students(id) on delete cascade,
+  weekday smallint not null check(weekday between 0 and 6),
+  lesson_time time not null,
+  primary key(student_id, weekday)
+);
 create table lesson_groups (
   id uuid primary key default gen_random_uuid(), name text not null, type text not null check (type in ('pair','group')),
   teacher_id uuid references teachers(id), created_at timestamptz default now()
@@ -39,6 +45,7 @@ create index lessons_date_idx on lessons(lesson_date);
 create index students_teacher_idx on students(teacher_id);
 alter table teachers enable row level security;
 alter table students enable row level security;
+alter table student_schedule_slots enable row level security;
 alter table lesson_groups enable row level security;
 alter table group_members enable row level security;
 alter table subscriptions enable row level security;
@@ -49,6 +56,7 @@ alter table subscription_history enable row level security;
 -- Базовая политика для авторизованных сотрудников. Перед продакшеном добавьте роли школы.
 create policy "authenticated staff teachers" on teachers for all to authenticated using (true) with check (true);
 create policy "authenticated staff students" on students for all to authenticated using (true) with check (true);
+create policy "authenticated staff schedule slots" on student_schedule_slots for all to authenticated using (true) with check (true);
 create policy "authenticated staff groups" on lesson_groups for all to authenticated using (true) with check (true);
 create policy "authenticated staff members" on group_members for all to authenticated using (true) with check (true);
 create policy "authenticated staff subscriptions" on subscriptions for all to authenticated using (true) with check (true);
