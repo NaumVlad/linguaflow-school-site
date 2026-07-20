@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f7fb" />
+  <title>LinguaFlow — расписание школы</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="LinguaFlow">
+        <span class="brand-mark">L</span><span>LinguaFlow</span>
+      </a>
+      <nav class="nav" aria-label="Основная навигация">
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span> Обзор</button>
+        <button class="nav-item" data-view="calendar"><span>▦</span> Расписание</button>
+        <button class="nav-item" data-view="students"><span>♙</span> Ученики</button>
+        <button class="nav-item" data-view="groups"><span>♧</span> Группы и пары</button>
+        <button class="nav-item" data-view="subscriptions"><span>◫</span> Абонементы</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span> Настройки</button>
+      </nav>
+      <div class="sidebar-card">
+        <div class="sync-dot"></div>
+        <div><strong>Демо-режим</strong><small>Данные хранятся на устройстве</small></div>
+      </div>
+      <button class="profile" id="resetDemo"><span class="avatar">АШ</span><span><strong>Английская школа</strong><small>Администратор</small></span></button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn mobile-only" id="menuBtn" aria-label="Открыть меню">☰</button>
+        <div><h1 id="pageTitle">Добрый день!</h1><p id="pageSubtitle">Вот что происходит в школе сегодня</p></div>
+        <div class="top-actions">
+          <label class="search"><span>⌕</span><input id="globalSearch" placeholder="Найти ученика или группу" /></label>
+          <button class="icon-btn" id="exportBtn" title="Экспорт резервной копии">⇩</button>
+          <button class="primary" id="quickAdd">＋ Новое занятие</button>
+        </div>
+      </header>
+
+      <section id="viewRoot" class="content" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head"><div><span class="eyebrow" id="modalEyebrow">РАСПИСАНИЕ</span><h2 id="modalTitle">Новое занятие</h2></div><button class="icon-btn" data-close>×</button></div>
+      <form id="modalForm" class="form-grid"></form>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
