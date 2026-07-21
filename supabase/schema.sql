@@ -20,7 +20,9 @@ create table lesson_groups (
 create table group_members (group_id uuid references lesson_groups(id) on delete cascade, student_id uuid references students(id) on delete cascade, primary key(group_id,student_id));
 create table subscriptions (
   id uuid primary key default gen_random_uuid(), student_id uuid not null references students(id) on delete cascade,
-  total_lessons smallint not null check(total_lessons between 1 and 12), remaining smallint not null check(remaining >= 0), active boolean default true, created_at timestamptz default now()
+  total_lessons smallint not null check(total_lessons between 1 and 12), remaining smallint not null check(remaining >= 0),
+  starts_on date, first_lesson_number smallint not null default 1 check(first_lesson_number between 1 and 12),
+  active boolean default true, created_at timestamptz default now()
 );
 create table lessons (
   id uuid primary key default gen_random_uuid(), lesson_date date not null, starts_at time not null, ends_at time not null,
