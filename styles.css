@@ -27,3 +27,8 @@
 .sync-dot.offline{background:#e65e66;box-shadow:0 0 0 4px #ffebec}
 .compact-sort{min-width:145px;max-width:190px}
 .teacher-color-input{width:100%;min-height:48px;padding:6px;cursor:pointer;background:#fff}
+.lesson{border:1px solid #d8dce8;border-left-width:4px;color:var(--text)}
+.lesson small{color:#465066}
+.lesson.pair,.lesson.group{color:var(--text)}
+.month-event{border:1px solid #d8dce8;border-left-width:3px;color:var(--text)}
+.profile{cursor:default;user-select:none}
