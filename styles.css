@@ -32,3 +32,4 @@
 .lesson.pair,.lesson.group{color:var(--text)}
 .month-event{border:1px solid #d8dce8;border-left-width:3px;color:var(--text)}
 .profile{cursor:default;user-select:none}
+.lesson-parallel{padding-left:5px;padding-right:4px}.lesson-parallel strong,.lesson-parallel small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
