@@ -25,3 +25,4 @@
 .auth-card button{width:100%;justify-content:center}.auth-error{min-height:20px;color:#c0392b;font-size:13px}
 .auth-hint{color:var(--muted);text-align:center;line-height:1.45}
 .sync-dot.offline{background:#e65e66;box-shadow:0 0 0 4px #ffebec}
+.compact-sort{min-width:145px;max-width:190px}
